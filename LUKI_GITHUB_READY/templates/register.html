@@ -1,0 +1,8 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Daftar LUKI</title><link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"></head><body class="auth"><div class="deco-layer" aria-hidden="true">
+<span style="top:8%;left:8%;font-size:46px;opacity:.16;animation-delay:.2s">📝</span>
+<span style="top:12%;left:85%;font-size:52px;opacity:.18;animation-delay:.8s">🎓</span>
+<span style="top:78%;left:6%;font-size:44px;opacity:.15;animation-delay:1.3s">🏫</span>
+<span style="top:82%;left:88%;font-size:36px;opacity:.15;animation-delay:.5s">✏️</span>
+<span style="top:45%;left:4%;font-size:34px;opacity:.14;animation-delay:1.7s">💡</span>
+<span style="top:42%;left:93%;font-size:34px;opacity:.14;animation-delay:1s">📚</span>
+</div><div class="authbox"><div class="brand">💙 LUKI</div><h1>Buat Akun</h1><p>Daftar sebagai pengguna baru.</p>{% with m=get_flashed_messages(with_categories=true) %}{% for c,x in m %}<div class="alert {{c}}">{{x}}</div>{% endfor %}{% endwith %}<form method="post"><label>Username</label><input name="username" minlength="3" required><label>Email</label><input name="email" type="email" required><label>Password</label><input name="password" type="password" minlength="5" required><label>Konfirmasi Password</label><input name="confirm" type="password" required><button>Daftar</button></form><div class="line">Sudah punya akun? <a href="{{url_for('login')}}">Login</a></div></div><script src="{{url_for('static',filename='script.js')}}"></script></body></html>

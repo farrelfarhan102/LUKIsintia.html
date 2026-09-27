@@ -1,0 +1,30 @@
+FILEPOINT - VERSI LENGKAP
+===========================
+
+1. Buka folder ini di VS Code.
+2. Buat virtual environment (opsional):
+   python -m venv venv
+   venv\Scripts\activate       (Windows)
+
+3. Install:
+   pip install -r requirements.txt
+
+4. Jalankan:
+   python app.py
+
+5. Buka:
+   http://127.0.0.1:5000
+
+AKUN ADMIN:
+Username: admin
+Password: admin123
+
+PENGGUNA:
+Pengguna baru klik "Daftar sekarang". Akun tersimpan di SQLite.
+Setiap upload file = +100 poin.
+Reward: Premium 7 hari, Sertifikat Kontributor, Notebook Cute Cat, Notebook Pastel.
+
+Catatan keamanan:
+- Ganti app.secret_key sebelum dipakai untuk deployment.
+- Ini cocok untuk project/demo lokal. Untuk produksi perlu validasi file,
+  batas ukuran upload, CSRF protection, dan konfigurasi secret dari environment.

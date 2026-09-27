@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin LUKI</title>
+<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+<div class="deco-layer" aria-hidden="true">
+<span style="top:10%;left:2%;font-size:46px;opacity:.14;animation-delay:.2s">🛡️</span>
+<span style="top:24%;left:96%;font-size:40px;opacity:.13;animation-delay:.8s">📊</span>
+<span style="top:65%;left:1%;font-size:38px;opacity:.13;animation-delay:1.1s">🎓</span>
+<span style="top:75%;left:97%;font-size:42px;opacity:.13;animation-delay:.5s">📚</span>
+<span style="top:90%;left:5%;font-size:34px;opacity:.12;animation-delay:1.4s">📎</span>
+</div>
+
+<header>
+  <div class="brand">💙 LUKI</div>
+  <div>🛡️ Admin <a class="logout" href="{{url_for('logout')}}">Keluar</a></div>
+</header>
+
+<main>
+<h1>Dashboard Admin</h1>
+
+<div class="stats">
+  <div>👥<b>{{stats[0]}}</b><small>Pengguna</small></div>
+  <div>📄<b>{{stats[1]}}</b><small>Total File</small></div>
+  <div>🎁<b>{{stats[2]}}</b><small>Permintaan Reward</small></div>
+</div>
+
+{% with m=get_flashed_messages(with_categories=true) %}
+  {% for c,x in m %}<div class="alert {{c}}">{{x}}</div>{% endfor %}
+{% endwith %}
+
+<section class="panel">
+  <h2>👥 Pengguna</h2>
+  <div class="tablewrap">
+    <table>
+      <tr><th>Username</th><th>Email</th><th>Poin</th><th>Role</th><th>Daftar</th></tr>
+      {% for u in users %}
+      <tr><td>{{u.username}}</td><td>{{u.email}}</td><td>⭐ {{u.points}}</td><td>{{u.role}}</td><td>{{u.created_at}}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="file-panel-head">
+    <div>
+      <h2>📄 File Pengguna</h2>
+      <p class="sub">Cari file berdasarkan nama file, judul, atau username pemilik.</p>
+    </div>
+    <form method="get" action="{{url_for('admin')}}" class="file-search">
+      <input type="search" name="q" value="{{search}}" placeholder="Cari nama file..." autocomplete="off">
+      <button type="submit">🔎 Cari</button>
+      {% if search %}<a class="clear-search" href="{{url_for('admin')}}">Reset</a>{% endif %}
+    </form>
+  </div>
+
+  {% if search %}
+  <div class="search-result">Hasil pencarian untuk <b>"{{search}}"</b> — {{files|length}} file ditemukan.</div>
+  {% endif %}
+
+  {% for f in files %}
+  <div class="row file-row">
+    <span>
+      📄 <b>{{f.title}}</b>
+      {% if f.premium_only %}<span class="lock-tag">🔒 Premium Only</span>{% endif %}
+      <small>Nama file: {{f.filename}} • {{f.username}} • {{f.category}} • {{f.created_at}}</small>
+    </span>
+    <div class="file-actions">
+      <a class="btn-view" href="{{url_for('admin_file_view',id=f.id)}}" target="_blank" rel="noopener">👁️ Buka / Lihat</a>
+      <a class="btn-download" href="{{url_for('download',id=f.id)}}">⬇️ Download</a>
+      <form method="post" action="{{url_for('admin_file',id=f.id)}}" onsubmit="return confirm('Hapus file ini?')">
+        <button class="danger">Hapus</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <p>{% if search %}File yang sesuai dengan pencarian tidak ditemukan.{% else %}Tidak ada file.{% endif %}</p>
+  {% endfor %}
+</section>
+
+<section class="panel">
+  <h2>🎁 Permintaan Reward</h2>
+  {% for r in reds %}
+  <div class="row">
+    <span>🎁 <b>{{r.reward}}</b><small>{{r.username}} • {{r.cost}} poin • {{r.created_at}}</small></span>
+    <form method="post" action="{{url_for('admin_reward',id=r.id)}}">
+      <select name="status">
+        <option {% if r.status=='Diproses' %}selected{% endif %}>Diproses</option>
+        <option {% if r.status=='Disetujui' %}selected{% endif %}>Disetujui</option>
+        <option {% if r.status=='Selesai' %}selected{% endif %}>Selesai</option>
+        <option {% if r.status=='Ditolak' %}selected{% endif %}>Ditolak</option>
+      </select>
+      <button>Update</button>
+    </form>
+  </div>
+  {% else %}<p>Belum ada permintaan.</p>{% endfor %}
+</section>
+</main>
+
+<footer>LUKI © 2026</footer>
+<script src="{{url_for('static',filename='script.js')}}"></script>
+</body>
+</html>

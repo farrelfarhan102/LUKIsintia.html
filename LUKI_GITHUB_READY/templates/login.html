@@ -1,0 +1,8 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login LUKI</title><link rel="stylesheet" href="{{url_for('static',filename='style.css')}}"></head><body class="auth"><div class="deco-layer" aria-hidden="true">
+<span style="top:6%;left:5%;font-size:52px;opacity:.18;animation-delay:0s">🎓</span>
+<span style="top:14%;left:88%;font-size:44px;opacity:.16;animation-delay:.6s">📚</span>
+<span style="top:75%;left:8%;font-size:40px;opacity:.15;animation-delay:1.1s">✏️</span>
+<span style="top:80%;left:90%;font-size:48px;opacity:.16;animation-delay:.3s">🏫</span>
+<span style="top:45%;left:3%;font-size:34px;opacity:.14;animation-delay:1.6s">📎</span>
+<span style="top:40%;left:94%;font-size:36px;opacity:.14;animation-delay:.9s">⭐</span>
+</div><div class="authbox"><div class="brand">💙 LUKI</div><h1>Login Pengguna</h1><p>Masuk untuk mengumpulkan poin.</p>{% with m=get_flashed_messages(with_categories=true) %}{% for c,x in m %}<div class="alert {{c}}">{{x}}</div>{% endfor %}{% endwith %}<form method="post"><label>Username</label><input name="username" required><label>Password</label><input name="password" type="password" required><button>Masuk</button></form><div class="line">Belum punya akun? <a href="{{url_for('register')}}">Daftar sekarang</a></div></div><script src="{{url_for('static',filename='script.js')}}"></script></body></html>
